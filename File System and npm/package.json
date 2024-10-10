@@ -1,0 +1,19 @@
+{
+  "name": "file-system-and-npm",
+  "version": "1.0.0",
+  "description": "using npm",
+  "main": "dir.js",
+  "scripts": {
+    "start": "node dir",
+    "custom": "node file",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Hi"
+  ],
+  "author": "Akash Kumar",
+  "license": "ISC",
+  "dependencies": {
+    "uuid": "^10.0.0"
+  }
+}
