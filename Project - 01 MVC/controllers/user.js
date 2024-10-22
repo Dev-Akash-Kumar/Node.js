@@ -1,4 +1,4 @@
-const User = require("../models/Usern");
+const User = require("../models/User");
 
 async function handleGetAllUsers(req, res) {
   const allUsersDB = await User.find({});
@@ -21,27 +21,31 @@ async function handleDeleteById(req, res) {
 }
 
 async function handleCreateNewUser(req, res) {
-  const body = req.body;
-  console.log(body);
-  if (
-    !body ||
-    !body.first_name ||
-    !body.last_name ||
-    !body.email ||
-    !body.gender ||
-    !body.job_title
-  ) {
-    return res.status(400).json({ msg: "all fields are req.." });
+  try {
+    const body = req.body;
+    console.log(body);
+    if (
+      !body ||
+      !body.first_name ||
+      !body.last_name ||
+      !body.email ||
+      !body.gender ||
+      !body.jobTitle
+    ) {
+      return res.status(400).json({ msg: "all fields are req.." });
+    }
+    const result = await User.create({
+      firstName: body.first_name,
+      lastName: body.last_name,
+      email: body.email,
+      gender: body.gender,
+      jobTitle: body.job_title,
+    });
+    console.log("result", result);
+    return res.status(201).json({ msg: "success", id: result._id });
+  } catch (error) {
+    console.log("Error creating user:", error);
   }
-  const result = await User.create({
-    firstName: body.first_name,
-    lastName: body.last_name,
-    email: body.email,
-    gender: body.gender,
-    jobTitle: body.job_title,
-  });
-  console.log("result", result);
-  return res.status(201).json({ msg: "success", id: result._id });
 }
 
 module.exports = {
